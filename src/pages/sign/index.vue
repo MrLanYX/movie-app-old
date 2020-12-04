@@ -1,16 +1,11 @@
 <template>
 	<view class="content">
-		<div>
-			<me-banner></me-banner>
-		</div>
 	</view>
 </template>
 
 <script>
-	import meBanner from "@/components/banner.vue"
 	export default {
 		components: {
-			meBanner
 		},
 		data() {
 			return {
