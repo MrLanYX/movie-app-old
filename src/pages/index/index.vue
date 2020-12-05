@@ -1,8 +1,8 @@
-<template>
+<template lang="wxml">
 	<view class="content">
-		<div>
+		<view class="banner">
 			<me-banner></me-banner>
-		</div>
+		</view>
 	</view>
 </template>
 
@@ -26,10 +26,17 @@
 </script>
 
 <style lang="scss">
+	page{
+		width: 100vw;
+		height: 100vh;
+	}
 	.content {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
+	}
+	.banner{
+		background-color: antiquewhite;
 	}
 </style>

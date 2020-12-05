@@ -12,7 +12,12 @@
 	}
 </script>
 
+<!-- 引入样式 -->
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+<!-- 引入组件库 -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
 <style lang="scss">
 	/*每个页面公共css */
-	@import './style/base.css'
+	@import './style/base.css';
 </style>

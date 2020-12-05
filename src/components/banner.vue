@@ -1,6 +1,13 @@
-<template>
+<template  lang="wxml">
     <view>
-        swiper
+        <swiper :indicator-dots="true">
+            <swiper-item>
+                A
+            </swiper-item>
+            <swiper-item>
+                B
+            </swiper-item>
+        </swiper>
     </view>
 </template>
 
@@ -36,6 +43,12 @@
     };
 </script>
 
-<style scoped>
-
+<style lang="scss">
+    swiper {
+		width: 750rpx;
+		height: 300rpx;
+    }
+    image {
+        height: 100%;
+    }
 </style>
