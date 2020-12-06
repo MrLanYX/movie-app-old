@@ -1,17 +1,17 @@
 <template lang="wxml">
 	<view class="content">
 		<me-banner></me-banner>
-        <gongge></gongge>
+        <me-gongge></me-gongge>
 	</view>
 </template>
 
 <script>
 import meBanner from "@/components/banner.vue";
-import gongge from "@/components/3X3.vue";
+import meGongge from "@/components/3X3.vue";
 export default {
     components: {
         meBanner,
-        gongge
+        meGongge
     },
     data() {
         return {};

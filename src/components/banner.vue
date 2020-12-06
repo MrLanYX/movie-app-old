@@ -12,16 +12,16 @@
                 <swiper-item v-for="item in info" :key="item">
                     <view class="big l item">
                         <image :src="item.banner1" mode="center" />
-                        <text >123</text>
+                        <text>123</text>
                     </view>
                     <view class="big r">
                         <view class="small item">
                             <image :src="item.banner2" mode="center" />
-                            <text >123</text>
+                            <text>123</text>
                         </view>
                         <view class="small item">
                             <image :src="item.banner3" mode="center" />
-                            <text >123</text>
+                            <text>123</text>
                         </view>
                     </view>
                 </swiper-item>
@@ -31,7 +31,8 @@
 </template>
 
 <script>
-import { uniSwiperDot } from "@dcloudio/uni-ui";
+import uniSwiperDot from "@dcloudio/uni-ui/lib/uni-swiper-dot/uni-swiper-dot.vue";
+
 export default {
     name: "",
     components: {
@@ -110,9 +111,9 @@ swiper-item {
         border-bottom: 1px solid #ccc;
     }
 }
-.item{
+.item {
     position: relative;
-    text{
+    text {
         position: absolute;
         left: 0;
         bottom: 0;
