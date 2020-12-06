@@ -8,7 +8,7 @@
             mode="round"
             :dotsStyles="dotsStyles"
         >
-            <swiper @change="change">
+            <swiper @change="change" autoplay="true">
                 <swiper-item v-for="item in info" :key="item">
                     <view class="big l item">
                         <image :src="item.banner1" mode="center" />
@@ -61,7 +61,7 @@ export default {
             current: 0, // 当前轮播图序号
             dotsStyles: {
                 // 指示点样式
-                backgroundColor: "rgba(0, 0, 0, .2)", // 未选择颜色
+                backgroundColor: "rgba(255, 255, 255, .4)", // 未选择颜色
                 border: 0, // 未选择边框
                 selectedBackgroundColor: "#f5f5f5", // 选中颜色
                 selectedBorder: 0, // 选中时边框

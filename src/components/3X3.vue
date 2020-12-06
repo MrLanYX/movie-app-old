@@ -1,5 +1,7 @@
 <template xlang="wxml">
-    <view> </view>
+    <view>
+        1
+    </view>
 </template>
 
 <script>

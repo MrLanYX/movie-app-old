@@ -1,14 +1,17 @@
 <template lang="wxml">
 	<view class="content">
 		<me-banner></me-banner>
+        <gongge></gongge>
 	</view>
 </template>
 
 <script>
 import meBanner from "@/components/banner.vue";
+import gongge from "@/components/3X3.vue";
 export default {
     components: {
         meBanner,
+        gongge
     },
     data() {
         return {};
@@ -31,7 +34,7 @@ page {
     justify-content: center;
 }
 me-banner{
-	margin: 10px 0;
+    margin-bottom: 15px;
 	background-color: #fff;
 }
 </style>
