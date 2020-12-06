@@ -1,6 +1,6 @@
 <template lang="wxml">
 	<view class="content">
-			<me-banner></me-banner>
+		<me-banner></me-banner>
 	</view>
 </template>
 
