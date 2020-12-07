@@ -2,34 +2,43 @@
     <!-- 三成三的九宫格 -->
     <view class="gg">
         <view class="gg-top">
-            <text>{{name}}</text>
+            <text>{{ name }}</text>
             <button size="mini">更多>></button>
         </view>
         <view class="gg-main">
-            <uni-grid v-for="i in 3" column="3" highlight="true" :key="i">
-                <uni-grid-item v-for="j in 3" :key="j">
-                    <text>{{3*i+j+1}}</text>
-                </uni-grid-item>
-            </uni-grid>
+            <view
+                class="gg-row"
+                v-for="i in 3"
+                column="3"
+                highlight="true"
+                :key="i"
+            >
+                <view class="gg-col" v-for="j in 3" :key="j">
+                    <image :src="content[3 * i + j].img" />
+                    <text>{{ content[3 * i + j].listname }}\n</text>
+                    <text>
+                        更新至：
+                        <text>第{{ content[3 * i + j].jishu }}集</text>
+                    </text>
+                </view>
+            </view>
         </view>
     </view>
 </template>
 
 <script>
-import uniGrid from "@dcloudio/uni-ui/lib/uni-grid/uni-grid.vue";
-import uniGridItem from "@dcloudio/uni-ui/lib/uni-grid-item/uni-grid-item.vue";
-
 export default {
     name: "",
-    components: {
-        uniGrid,
-        uniGridItem,
-    },
+    components: {},
     props: {
-        name:String
+        name: String,
+        goto: String,
+        content: Array,
     },
     data() {
-        return {};
+        return {
+            a:require('@/static/banner.jpg')
+        };
     },
     computed: {},
     watch: {},
@@ -42,7 +51,6 @@ export default {
 <style lang="scss">
 .gg {
     width: calc(750rpx - 30px);
-    height: 100px;
     margin: 0 15px;
     .gg-top {
         width: 100%;
@@ -53,7 +61,7 @@ export default {
         text {
             width: 85%;
             line-height: 32px;
-            font-size: 24px;
+            font-size: 18px;
         }
         button {
             width: 15%;
@@ -62,13 +70,48 @@ export default {
     }
     .gg-main {
         width: 100%;
+        height: calc(1333rpx - 53px); // 保证宽高比
+        .gg-row {
+            width: 100%;
+            height: 33.3%;
+            display: flex;
+            .gg-col {
+                width: 33.3%;
+                height: 100%;
+                padding: 5px;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+                image {
+                    width: 100%;
+                    flex-grow: 1;
+                    margin-bottom: 5px;
+                }
+                text {
+                    font-size: 14px;
+                    align-items: flex-end;
+                    text {
+                        font-size: 12px;
+                        color: #1ca591;
+                    }
+                }
+            }
+        }
     }
 }
-uni-grid-item {
-    view {
-        // 固定单格宽高比
-        // 近似16：9
-        padding-bottom: 177%; 
-    }
-}
+// .gg-col {
+//     width: 100%;
+//     padding: 5px;
+//     image {
+//         width: 100%;
+//         height: 177%;
+//     }
+//     text {
+//         font-size: 14px;
+//         text {
+//             font-size: 12px;
+//             color: #1ca591;
+//         }
+//     }
+// }
 </style>

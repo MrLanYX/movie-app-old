@@ -9,7 +9,7 @@
             :dotsStyles="dotsStyles"
         >
             <swiper @change="change" autoplay="true">
-                <swiper-item v-for="item in info" :key="item">
+                <swiper-item v-for="(item,index) in info" :key="index">
                     <view class="big l item">
                         <image :src="item.banner1" mode="center" />
                         <text>123</text>
