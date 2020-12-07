@@ -3,37 +3,37 @@
         <view class="bg">
             <view class="l">
                 <view class="jiao"></view>
-                <view class="li1" @click="change(0)">
-                    <image v-if="!flag[0]" src="@/static/icon/search.svg" />
-                    <image v-if="flag[0]" src="@/static/icon/search_fill.svg" />
-                    <text :class="{ open: flag[0] }">搜索</text>
+                <view class="li1" @click="change(1)">
+                    <image v-if="!flag1" src="@/static/icon/search.svg" />
+                    <image v-if="flag1" src="@/static/icon/search_fill.svg" />
+                    <text :class="{ open: flag1 }">搜索</text>
                 </view>
-                <view class="li2" @click="change(1)">
-                    <image v-if="!flag[1]" src="@/static/icon/manage.svg" />
-                    <image v-if="flag[1]" src="@/static/icon/manage_fill.svg" />
-                    <text :class="{ open: flag[1] }">分类</text>
+                <view class="li2" @click="change(2)">
+                    <image v-if="!flag2" src="@/static/icon/manage.svg" />
+                    <image v-if="flag2" src="@/static/icon/manage_fill.svg" />
+                    <text :class="{ open: flag2 }">分类</text>
                 </view>
             </view>
             <view class="r">
                 <view class="jiao"></view>
-                <view class="li4" @click="change(3)">
-                    <image v-if="!flag[3]" src="@/static/icon/collection.svg" />
+                <view class="li4" @click="change(4)">
+                    <image v-if="!flag4" src="@/static/icon/collection.svg" />
                     <image
-                        v-if="flag[3]"
+                        v-if="flag4"
                         src="@/static/icon/collection_fill.svg"
                     />
-                    <text :class="{ open: flag[3]}">收藏</text>
+                    <text :class="{ open: flag4 }">收藏</text>
                 </view>
-                <view class="li5">
-                    <image v-if="!flag[4]" src="@/static/icon/mine.svg" />
-                    <image v-if="flag[4]" src="@/static/icon/mine_fill.svg" />
-                    <text :class="{ open: flag[4] }">我的</text>
+                <view class="li5" @click="change(5)">
+                    <image v-if="!flag5" src="@/static/icon/mine.svg" />
+                    <image v-if="flag5" src="@/static/icon/mine_fill.svg" />
+                    <text :class="{ open: flag5 }">我的</text>
                 </view>
             </view>
         </view>
-        <view class="li3">
-            <image v-if="!flag[3]" src="@/static/icon/homepage.svg" />
-            <image v-if="flag[3]" src="@/static/icon/homepage_fill.svg" />
+        <view class="li3" @click="change(3)">
+            <image v-if="!flag3" src="@/static/icon/homepage.svg" />
+            <image v-if="flag3" src="@/static/icon/homepage_fill.svg" />
         </view>
     </view>
 </template>
@@ -47,25 +47,32 @@ export default {
     },
     data() {
         return {
-            flag: [false, false, true, false, false],
+            flag1: false,
+            flag2: false,
+            flag3: false,
+            flag4: false,
+            flag5: false,
         };
     },
     computed: {},
     watch: {},
     created() {
-        // 判断谁处于选中状态
-        // if (this.target == 1) console.log(1);
-        // if (this.target == 2) console.log(2);
-        // if (this.target == 3) console.log(3);
+        this.change(this.target)
     },
     mounted() {},
     methods: {
-        change: function (index) {
-            for (let i = 0; i < this.flag.length; i++) {
-                this.flag[i]=false
-            }
-            this.flag[index] = true;
-            console.log(this.flag);
+        change: function (e) {
+            // if (this.target == e) return false;
+            this.flag1 = false;
+            this.flag2 = false;
+            this.flag3 = false;
+            this.flag4 = false;
+            this.flag5 = false;
+            if (e == 1) this.flag1 = true;
+            if (e == 2) this.flag2 = true;
+            if (e == 3) this.flag3 = true;
+            if (e == 4) this.flag4 = true;
+            if (e == 5) this.flag5 = true;
         },
     },
 };
@@ -144,7 +151,7 @@ export default {
         height: 120rpx;
         border-radius: 50%;
         // box-shadow: inset 0 0 10px 10px #55555510;
-        background-color: rgb(255, 136, 25);
+        background-color: #ff9234;
         // background-image: url("./../static/btn-bg.jpg");
         // animation: animate 60s linear infinite alternate;
         display: flex;
@@ -174,6 +181,6 @@ export default {
     }
 }
 .open {
-    color: rgb(245, 112, 23) !important;
+    color: #ff9234 !important;
 }
 </style>

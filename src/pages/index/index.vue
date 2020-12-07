@@ -3,7 +3,7 @@
 		<me-banner></me-banner>
         <me-gongge v-for="(item,index) in fenleis" :name="item.name" :goto="item.goto" :content="item.list" :key="index"></me-gongge>
         <view class="bottom"></view>
-        <me-bottom-nav :target="2"></me-bottom-nav>
+        <me-bottom-nav :target="3"></me-bottom-nav>
 	</view>
 </template>
 
