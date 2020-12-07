@@ -2,16 +2,20 @@
 	<view class="content">
 		<me-banner></me-banner>
         <me-gongge v-for="(item,index) in fenleis" :name="item.name" :goto="item.goto" :content="item.list" :key="index"></me-gongge>
+        <view class="bottom"></view>
+        <me-bottom-nav :target="2"></me-bottom-nav>
 	</view>
 </template>
 
 <script>
 import meBanner from "@/components/banner.vue";
 import meGongge from "@/components/3X3.vue";
+import meBottomNav from "@/components/bottom-nav.vue";
 export default {
     components: {
         meBanner,
         meGongge,
+        meBottomNav,
     },
     data() {
         return {
@@ -54,7 +58,8 @@ export default {
                         },
                         {
                             img: require("@/static/gongge/7.jpg"),
-                            listname: "辉夜姬想让人告白 天才们的恋爱头脑战第二季",
+                            listname:
+                                "辉夜姬想让人告白 天才们的恋爱头脑战第二季",
                             jishu: "12",
                         },
                         {
@@ -106,7 +111,8 @@ export default {
                         },
                         {
                             img: require("@/static/gongge/7.jpg"),
-                            listname: "辉夜姬想让人告白 天才们的恋爱头脑战第二季",
+                            listname:
+                                "辉夜姬想让人告白 天才们的恋爱头脑战第二季",
                             jishu: "12",
                         },
                         {
@@ -142,10 +148,23 @@ page {
     align-items: center;
     justify-content: center;
 }
+.bottom {
+    height: 200px;
+    view {
+        width: 20px;
+        height: 20px;
+        background-color: black;
+    }
+}
 me-banner,
 me-gongge {
     padding-top: 5px;
     margin-bottom: 15px;
     background-color: #fff;
+}
+me-bottom-nav {
+    position: fixed;
+    left: 0;
+    bottom: 0;
 }
 </style>

@@ -4,6 +4,7 @@
 </template>
 
 <script>
+import me from './me.vue'
 	export default {
 		components: {
 		},
