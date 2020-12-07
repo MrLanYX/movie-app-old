@@ -1,7 +1,7 @@
 <template lang="wxml">
 	<view class="content">
 		<me-banner></me-banner>
-        <me-gongge></me-gongge>
+        <me-gongge :name="'名字'"></me-gongge>
 	</view>
 </template>
 
