@@ -24,6 +24,16 @@ export default {
     created() {},
     mounted() {},
     methods: {},
+    onShow() {
+        if (
+            typeof this.$mp.page.getTabBar === "function" &&
+            this.$mp.page.getTabBar()
+        ) {
+            this.$mp.page.getTabBar().setData({
+                selected: 4,
+            });
+        }
+    },
 };
 </script>
 

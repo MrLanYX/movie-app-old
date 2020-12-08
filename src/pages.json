@@ -38,7 +38,7 @@
 		"backgroundColor": "#F8F8F8"
 	},
 	"tabBar": {
-		"custom": false,
+		"custom": true,
 		"color": "#7A7E83",
 		"selectedColor": "#3cc51f",
 		"borderStyle": "black",
@@ -74,7 +74,6 @@
 				"selectedIconPath": "static/icon/mine_fill.png",
 				"text": "我的"
 			}
-
 		]
 	}
 }

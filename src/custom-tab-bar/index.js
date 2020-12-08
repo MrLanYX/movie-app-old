@@ -1,18 +1,41 @@
+// import Vue from 'vue'
+
+// console.log(Vue);
+
 Component({
   data: {
-    selected: 0,
+    selected: 2,
     color: "#7A7E83",
     selectedColor: "#3cc51f",
     list: [{
-      pagePath: "/index/index",
-      iconPath: "/image/icon_component.png",
-      selectedIconPath: "/image/icon_component_HL.png",
-      text: "组件"
-    }, {
-      pagePath: "/index/index2",
-      iconPath: "/image/icon_API.png",
-      selectedIconPath: "/image/icon_API_HL.png",
-      text: "接口"
+      pagePath: "/pages/search/index",
+      iconPath: "/static/icon/search.png",
+      selectedIconPath: "/static/icon/search_fill.png",
+      text: "搜索"
+    },
+    {
+      pagePath: "/pages/fclass/index",
+      iconPath: "/static/icon/manage.png",
+      selectedIconPath: "/static/icon/manage_fill.png",
+      text: "分类"
+    },
+    {
+      pagePath: "/pages/index/index",
+      iconPath: "/static/icon/homepage.png",
+      selectedIconPath: "/static/icon/homepage_fill.png",
+      text: "首页"
+    },
+    {
+      pagePath: "/pages/collection/index",
+      iconPath: "/static/icon/collection.png",
+      selectedIconPath: "/static/icon/collection_fill.png",
+      text: "收藏"
+    },
+    {
+      pagePath: "/pages/me/index",
+      iconPath: "/static/icon/mine.png",
+      selectedIconPath: "/static/icon/mine_fill.png",
+      text: "我的"
     }]
   },
   attached() {
@@ -21,7 +44,7 @@ Component({
     switchTab(e) {
       const data = e.currentTarget.dataset
       const url = data.path
-      wx.switchTab({url})
+      wx.switchTab({ url })
       this.setData({
         selected: data.index
       })
