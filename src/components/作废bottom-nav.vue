@@ -7,6 +7,7 @@
 得出结论小程序与App上不使用此方法
 采用替代原生tabBar的方法
 新方法源地址：https://developers.weixin.qq.com/community/develop/article/doc/0000047ece8448712589b28525b413
+官方地址：https://developers.weixin.qq.com/miniprogram/dev/framework/ability/custom-tabbar.html
 
 
 
