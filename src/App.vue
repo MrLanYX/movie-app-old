@@ -5,7 +5,6 @@
 		},
 		onShow: function () {
 			console.log('App Show')
-			console.log(uni);
 		},
 		onHide: function () {
 			console.log('App Hide')

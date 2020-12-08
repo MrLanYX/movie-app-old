@@ -1,31 +1,64 @@
 .tab-bar {
+  position: relative;
+  width: 750rpx;
+  height: 140rpx;
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 48px;
-  background: white;
-  display: flex;
-  padding-bottom: env(safe-area-inset-bottom);
 }
 
-.tab-bar-border {
-  background-color: rgba(0, 0, 0, 0.33);
+.tab-bar-o {
+  width: 110rpx;
+  height: 110rpx;
+  background-color: #fff;
+  border: 1px solid chocolate;
+  border-radius: 50%;
   position: absolute;
+  top: 10rpx;
   left: 0;
-  top: 0;
-  width: 100%;
-  height: 1px;
-  transform: scaleY(0.5);
+  right: 0;
+  margin: auto;
+  z-index: 1;
+  box-shadow: 0 0 4px rgba(255, 152, 114, 0.8);
 }
 
-.tab-bar-item {
-  flex: 1;
-  text-align: center;
+.tab-bar-main {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80rpx;
+  background-color: #fff;
+  border-top: 1px solid chocolate;
+  box-shadow: 0 0 4px rgba(255, 152, 114, 0.8);
+  z-index: 2;
+  display: flex;
+}
+
+cover-view.a {
+  background-color: #ff9234;
+  border-top: 1px solid chocolate;
+  z-index: 3;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+.a cover-view{
+  color: #fff !important;
+}
+
+.tab-bar-item {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.zhongjian{
+  width: 150rpx;
+  height: 100%;
 }
 
 .tab-bar-item cover-image {
@@ -35,4 +68,5 @@
 
 .tab-bar-item cover-view {
   font-size: 10px;
+  text-align: center;
 }

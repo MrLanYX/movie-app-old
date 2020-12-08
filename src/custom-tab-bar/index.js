@@ -1,12 +1,8 @@
-// import Vue from 'vue'
-
-// console.log(Vue);
-
 Component({
   data: {
     selected: 2,
     color: "#7A7E83",
-    selectedColor: "#3cc51f",
+    selectedColor: "#ff9234",
     list: [{
       pagePath: "/pages/search/index",
       iconPath: "/static/icon/search.png",
