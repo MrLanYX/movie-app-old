@@ -3,19 +3,19 @@
 		<me-banner></me-banner>
         <me-gongge v-for="(item,index) in fenleis" :name="item.name" :goto="item.goto" :content="item.list" :key="index"></me-gongge>
         <view class="bottom"></view>
-        <me-bottom-nav :target="3"></me-bottom-nav>
+        <!-- <me-bottom-nav :target="3"></me-bottom-nav> -->
 	</view>
 </template>
 
 <script>
 import meBanner from "@/components/banner.vue";
 import meGongge from "@/components/3X3.vue";
-import meBottomNav from "@/components/bottom-nav.vue";
+// import meBottomNav from "@/components/bottom-nav.vue";
 export default {
     components: {
         meBanner,
         meGongge,
-        meBottomNav,
+        // meBottomNav,
     },
     data() {
         return {

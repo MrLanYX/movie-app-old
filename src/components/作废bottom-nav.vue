@@ -1,3 +1,15 @@
+原采用组件方式
+在需要tabBar的页面中加载组件
+可会降低性能
+会出现页面跳转组件不更新，复用性差的额情况
+如果通过target传参数的方式来控制组件的选择状态
+又会有操作繁琐的问题
+得出结论小程序与App上不使用此方法
+采用替代原生tabBar的方法
+新方法源地址：https://developers.weixin.qq.com/community/develop/article/doc/0000047ece8448712589b28525b413
+
+
+
 <template xlang="wxml">
     <view class="bottom-nav">
         <view class="bg">
@@ -57,23 +69,52 @@ export default {
     computed: {},
     watch: {},
     created() {
-        this.change(this.target)
+        this.changeStyle(this.target);
     },
     mounted() {},
     methods: {
         change: function (e) {
-            // if (this.target == e) return false;
-            this.flag1 = false;
-            this.flag2 = false;
-            this.flag3 = false;
-            this.flag4 = false;
-            this.flag5 = false;
-            if (e == 1) this.flag1 = true;
-            if (e == 2) this.flag2 = true;
-            if (e == 3) this.flag3 = true;
-            if (e == 4) this.flag4 = true;
-            if (e == 5) this.flag5 = true;
+            if (this.target == e) return false;
+            switch (e) {
+                case 1:
+                    uni.redirectTo({
+                        url: "/pages/search/index",
+                    });
+                    console.log(1);
+                    break;
+                case 3:
+                    uni.redirectTo({
+                        url: "/pages/index/index",
+                    });
+                    console.log(3);
+                    break;
+            }
         },
+        changeStyle:function(e){
+            // 先修改当前样式
+            // this.flag1 = false;
+            // this.flag2 = false;
+            // this.flag3 = false;
+            // this.flag4 = false;
+            // this.flag5 = false;
+            switch (e) {
+                case 1:
+                    this.flag1 = true;
+                    break;
+                case 2:
+                    this.flag2 = true;
+                    break;
+                case 3:
+                    this.flag3 = true;
+                    break;
+                case 4:
+                    this.flag4 = true;
+                    break;
+                case 5:
+                    this.flag5 = true;
+                    break;
+            }
+        }
     },
 };
 </script>

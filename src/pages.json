@@ -5,7 +5,14 @@
 			"style": {
 				"navigationBarTitleText": "首页"
 			}
+		},
+		{
+			"path": "pages/search/index",
+			"style": {
+				"navigationBarTitleText": "搜索"
+			}
 		}
+		
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
