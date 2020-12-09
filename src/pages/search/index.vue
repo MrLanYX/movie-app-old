@@ -6,25 +6,29 @@
                     class="search-top-input"
                     placeholder="请输入搜索的内容"
                     slot="default"
+                    v-model="search"
                 />
             </uni-nav-bar>
         </view>
         <view class="search-main">
-            <view v-show="true">
-                <view class="search-main-top">
-                    <text>历史记录</text>
-                    <view>
-                        <text>删除</text>
-                        <uni-icons type="trash" color="#777" />
+            <!-- 搜索框为空时显示历史记录 -->
+            <view v-show="!search" class="search-flag">
+                <view class="search-main-a">
+                    <view class="search-main-top">
+                        <text>历史记录</text>
+                        <view @click="delAllHistory">
+                            <text>删除</text>
+                            <uni-icons type="trash" color="#777" />
+                        </view>
                     </view>
-                </view>
-                <view class="search-main-lists">
-                    <text
-                        v-for="item in lists"
-                        class="search-main-list"
-                        :key="item"
-                        >{{ item }}</text
-                    >
+                    <view class="search-main-lists">
+                        <text
+                            v-for="item in lists"
+                            class="search-main-list"
+                            :key="item"
+                            >{{ item }}</text
+                        >
+                    </view>
                 </view>
             </view>
         </view>
@@ -44,6 +48,7 @@ export default {
     props: {},
     data() {
         return {
+            search: "",
             lists: [
                 "进击的巨人 最终季",
                 "Re：从零开始的异世界生活 第二季",
@@ -151,7 +156,23 @@ export default {
     watch: {},
     created() {},
     mounted() {},
-    methods: {},
+    methods: {
+        delAllHistory: function () {
+            var that=this
+            wx.showModal({
+                title: "清除所有历史记录",
+                content: "确认删除吗？",
+                success(res) {
+                    if (res.confirm) {
+                        console.log("用户点击确定");
+                        that.lists=[]
+                    }else {
+                        console.log("用户点击取消");
+                    }
+                },
+            });
+        },
+    },
     onShow() {
         if (
             typeof this.$mp.page.getTabBar === "function" &&
@@ -189,32 +210,43 @@ export default {
     padding: 15px;
     padding-bottom: 0;
     color: #777;
-    display: flex;
-    flex-direction: column;
-    .search-main-top {
+    .search-flag {
         width: 100%;
-        display: flex;
-        justify-content: space-between;
-        margin-top: 5px;
-    }
-    .search-main-lists {
-        flex: 1;
-        margin-top: 10px;
-        overflow: scroll;
-        display: flex;
-        flex-flow: row wrap;
-        align-content: flex-start;
-        .search-main-list {
-            display: inline-block;
-            height: 1.8rem;
-            line-height: 1.8rem;
-            border-radius: 1.8rem;
-            color: #000;
-            padding: 0 10px;
-            background-color: #fff;
-            border: 1px solid #999;
-            margin-right: 10px;
-            margin-bottom: 10px;
+        height: 100%;
+        .search-main-a {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            .search-main-top {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                margin-top: 5px;
+            }
+            .search-main-lists {
+                flex: 1;
+                margin-top: 10px;
+                overflow: scroll;
+                display: flex;
+                flex-flow: row wrap;
+                align-content: flex-start;
+                .search-main-list {
+                    display: inline-block;
+                    height: 1.8rem;
+                    line-height: 1.8rem;
+                    border-radius: 1.8rem;
+                    color: #000;
+                    padding: 0 10px;
+                    background-color: #fff;
+                    border: 1px solid #999;
+                    margin-right: 10px;
+                    margin-bottom: 10px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+            }
         }
     }
 }
