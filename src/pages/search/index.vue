@@ -10,20 +10,22 @@
             </uni-nav-bar>
         </view>
         <view class="search-main">
-            <view class="search-main-top">
-                <text>历史记录</text>
-                <view>
-                    <text>删除</text>
-                    <uni-icons type="trash" color="#777" />
+            <view v-show="true">
+                <view class="search-main-top">
+                    <text>历史记录</text>
+                    <view>
+                        <text>删除</text>
+                        <uni-icons type="trash" color="#777" />
+                    </view>
                 </view>
-            </view>
-            <view class="search-main-lists">
-                <text
-                    v-for="item in lists"
-                    class="search-main-list"
-                    :key="item"
-                    >{{ item }}</text
-                >
+                <view class="search-main-lists">
+                    <text
+                        v-for="item in lists"
+                        class="search-main-list"
+                        :key="item"
+                        >{{ item }}</text
+                    >
+                </view>
             </view>
         </view>
     </view>
@@ -185,6 +187,7 @@ export default {
     width: 100%;
     height: calc(100vh - 44px - 80rpx);
     padding: 15px;
+    padding-bottom: 0;
     color: #777;
     display: flex;
     flex-direction: column;
