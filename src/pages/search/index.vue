@@ -1,7 +1,10 @@
 <template xlang="wxml">
     <view class="content">
         <view class="search-top">
-            <uni-nav-bar right-text="搜索">
+            <uni-nav-bar
+                right-text="搜索"
+                @clickRight="searchItem"
+            >
                 <input
                     class="search-top-input"
                     placeholder="请输入搜索的内容"
@@ -10,24 +13,61 @@
                 />
             </uni-nav-bar>
         </view>
-        <view class="search-main">
-            <!-- 搜索框为空时显示历史记录 -->
-            <view v-show="!search" class="search-flag">
-                <view class="search-main-a">
-                    <view class="search-main-top">
-                        <text>历史记录</text>
-                        <view @click="delAllHistory">
-                            <text>删除</text>
-                            <uni-icons type="trash" color="#777" />
-                        </view>
+        <!-- 搜索框为空时显示历史记录 -->
+        <view
+            v-show="!search"
+            class="search-flag"
+        >
+            <view class="search-main-a">
+                <view class="search-main-top">
+                    <text>历史记录</text>
+                    <view @click="delAllHistory">
+                        <text>删除</text>
+                        <uni-icons
+                            type="trash"
+                            color="#777"
+                        />
                     </view>
-                    <view class="search-main-lists">
-                        <text
-                            v-for="item in lists"
-                            class="search-main-list"
-                            :key="item"
-                            >{{ item }}</text
-                        >
+                </view>
+                <view class="search-main-lists">
+                    <text
+                        v-for="item in lists"
+                        class="search-main-list"
+                        :key="item"
+                    >{{ item }}</text>
+                    <!-- 历史记录为空并且搜索框为空显示文本历史记录为空 -->
+                    <view
+                        v-show="tishiflag"
+                        style="width:100%;padding-top:100px"
+                    >
+                        <text class="history-tishi-text">您还没有历史记录!\n长按可删除单个历史记录</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+
+        <!-- 搜索出的结果 -->
+        <view
+            v-show="search"
+            class="item-flag"
+        >
+            <view class="item-box">
+                <view
+                    class="item-box-lists"
+                    v-for="item in items"
+                    :key="item"
+                    :class="{noshow:!item.url}"
+                >
+                    <image
+                        class="item-img"
+                        :src="item.thumb"
+                    />
+                    <view class="item-text">
+                        <text class="item-name">{{item.title}}</text>
+                        <text class="item-year">年份：<text class="a">{{item.time}}</text></text>
+                        <text class="item-jishu">更新至：<text class="a">{{item.lianzaijs}}</text></text>
+                        <text class="item-area">地区：<text class="a">{{item.area}}</text></text>
+                        <text class="item-go">立即观看</text>
                     </view>
                 </view>
             </view>
@@ -49,6 +89,7 @@ export default {
     data() {
         return {
             search: "",
+            tishiflag: false,
             lists: [
                 "进击的巨人 最终季",
                 "Re：从零开始的异世界生活 第二季",
@@ -150,25 +191,71 @@ export default {
                 "阿尔蒂",
                 "听我的电波吧",
             ],
+            items: [
+                {
+                    url: false,
+                    thumb: "",
+                    title: "资源名字",
+                    time: "年份",
+                    catid: "4",
+                    star: "演员",
+                    lianzaijs: "集数",
+                    beizhu: "备注",
+                    alias_full: "别名",
+                    area: "地区",
+                    sort: "",
+                },
+            ],
         };
     },
     computed: {},
-    watch: {},
+    watch: {
+        // 历史记录变化就执行显示判断
+        lists() {
+            this.tishiflagshow();
+        },
+    },
     created() {},
     mounted() {},
     methods: {
+        // 删除全部历史记录
         delAllHistory: function () {
-            var that=this
+            var that = this;
             wx.showModal({
                 title: "清除所有历史记录",
                 content: "确认删除吗？",
                 success(res) {
                     if (res.confirm) {
                         console.log("用户点击确定");
-                        that.lists=[]
-                    }else {
+                        that.lists = [];
+                    } else {
                         console.log("用户点击取消");
                     }
+                },
+            });
+        },
+        // 判断提示是否应该显示
+        tishiflagshow: function () {
+            if (this.lists.length == 0) {
+                this.tishiflag = true;
+            } else {
+                this.tishiflag = false;
+            }
+        },
+        // 搜索内容反馈结果
+        searchItem: function () {
+            var that = this;
+            uni.request({
+                url: "http://106.53.243.44:8877/ssszz.php", //仅为示例，并非真实接口地址。
+                data: {
+                    top: "10",
+                    q: that.search,
+                    dect: "0",
+                },
+                success: (res) => {
+                    // that.items = JSON.parse(data);
+                    // console.log(data);
+                    that.items=res.data
                 },
             });
         },
@@ -182,6 +269,7 @@ export default {
                 selected: 0,
             });
         }
+        this.tishiflagshow();
     },
 };
 </script>
@@ -204,50 +292,107 @@ export default {
         border-radius: 1.4rem;
     }
 }
-.search-main {
-    width: 100%;
-    height: calc(100vh - 44px - 80rpx);
-    padding: 15px;
-    padding-bottom: 0;
-    color: #777;
-    .search-flag {
+.search-flag {
+    width: calc(100vw - 30px);
+    height: calc(100vh - 59px - 80rpx);
+    margin: 15px;
+    .search-main-a {
         width: 100%;
         height: 100%;
-        .search-main-a {
+        display: flex;
+        flex-direction: column;
+        .search-main-top {
             width: 100%;
-            height: 100%;
             display: flex;
-            flex-direction: column;
-            .search-main-top {
-                width: 100%;
-                display: flex;
-                justify-content: space-between;
-                margin-top: 5px;
+            justify-content: space-between;
+            margin-top: 5px;
+        }
+        .search-main-lists {
+            flex: 1;
+            margin-top: 10px;
+            overflow: scroll;
+            display: flex;
+            flex-flow: row wrap;
+            align-content: flex-start;
+            .search-main-list {
+                display: inline-block;
+                height: 1.8rem;
+                line-height: 1.8rem;
+                border-radius: 1.8rem;
+                color: #000;
+                padding: 0 10px;
+                background-color: #fff;
+                border: 1px solid #999;
+                margin-right: 10px;
+                margin-bottom: 10px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
             }
-            .search-main-lists {
+            .history-tishi-text {
+                display: inline-block;
+                width: 100%;
+                text-align: center;
+            }
+        }
+    }
+}
+.item-flag {
+    width: 100%;
+    height: calc(100vh - 44px - 80rpx);
+    .item-box {
+        width: 100%;
+        height: 100%;
+        overflow: scroll;
+        .item-box-lists {
+            width: calc(100% - 30px);
+            height: 300rpx;
+            margin: auto;
+            margin-top: 15px;
+            padding: 0 10px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 4px #ccc;
+            overflow: hidden;
+            display: flex;
+            .item-img {
+                min-width: 215rpx;
+                height: 100%;
+                margin-right: 15px;
+                border: 1px solid #ccc;
+            }
+            .item-text {
                 flex: 1;
-                margin-top: 10px;
-                overflow: scroll;
+                padding: 15px 0;
                 display: flex;
-                flex-flow: row wrap;
-                align-content: flex-start;
-                .search-main-list {
-                    display: inline-block;
-                    height: 1.8rem;
-                    line-height: 1.8rem;
-                    border-radius: 1.8rem;
-                    color: #000;
-                    padding: 0 10px;
-                    background-color: #fff;
-                    border: 1px solid #999;
-                    margin-right: 10px;
-                    margin-bottom: 10px;
+                flex-direction: column;
+                justify-content: space-between;
+                .item-name {
+                    width: 400rpx;
+                    font-size: larger;
                     overflow: hidden;
                     text-overflow: ellipsis;
                     white-space: nowrap;
                 }
+                .item-go {
+                    align-self: flex-end;
+                    display: inline-block;
+                    height: 1.8rem;
+                    line-height: 1.8rem;
+                    padding: 0 10px;
+                    border-radius: 1.8rem;
+                    margin-right: 10px;
+                    color: #fff;
+                    background-color: #ff9234;
+                }
+                .a {
+                    color: #35d0ba;
+                }
             }
         }
     }
+}
+.noshow {
+    display: none !important;
 }
 </style>
