@@ -1,15 +1,15 @@
 {
 	"pages": [
 		{
-			"path": "pages/search/index",
-			"style": {
-				"navigationBarTitleText": "搜索"
-			}
-		},
-		{
 			"path": "pages/fclass/index",
 			"style": {
 				"navigationBarTitleText": "分类"
+			}
+		},
+		{
+			"path": "pages/search/index",
+			"style": {
+				"navigationBarTitleText": "搜索"
 			}
 		},
 		{
