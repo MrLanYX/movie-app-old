@@ -22,7 +22,7 @@
             class="draw"
             @click="show"
         >
-        <text class="draw-text">选择\n分类</text>
+            <text class="draw-text">选择\n分类</text>
         </view>
     </view>
 </template>
@@ -38,6 +38,11 @@ export default {
     props: {},
     data() {
         return {
+            action: "acg",
+            page: 1,
+            year: 2020,
+            area: "all",
+            class: 0,
             fclass: [],
         };
     },
@@ -131,7 +136,7 @@ export default {
     .item-box:nth-child(3n + 1) {
         margin-left: 2.5%;
     }
-    .draw{
+    .draw {
         position: fixed;
         right: 60px;
         top: 60px;
@@ -141,7 +146,7 @@ export default {
         border-radius: 50%;
         padding-top: 10px;
         box-shadow: 0 5px 10px #aaa;
-        .draw-text{
+        .draw-text {
             display: block;
             margin: auto;
             line-height: 20px;
