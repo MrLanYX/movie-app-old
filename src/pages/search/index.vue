@@ -69,7 +69,10 @@
                         <text class="item-year">年份：<text class="a">{{item.time}}</text></text>
                         <text class="item-jishu">更新至：<text class="a">{{item.lianzaijs}}</text></text>
                         <text class="item-area">地区：<text class="a">{{item.area}}</text></text>
-                        <text class="item-go">立即观看</text>
+                        <text
+                            class="item-go"
+                            @click="goplay(item.url)"
+                        >立即观看</text>
                     </view>
                 </view>
             </view>
@@ -269,7 +272,13 @@ export default {
         // 搜索内容反馈结果
         searchItem: function () {
             var that = this;
-            that.lists.unshift(that.search);
+            // 判断是否记录存在
+            if (that.lists.indexOf(that.search)<0) {
+                that.lists.unshift(that.search);
+            }else{
+                that.lists.splice(that.lists.indexOf(that.search),1)
+                that.lists.unshift(that.search);
+            }
             uni.request({
                 url: "http://106.53.243.44:8877/ssszz.php", //仅为示例，并非真实接口地址。
                 data: {
@@ -302,10 +311,17 @@ export default {
             var that = this;
             uni.showToast({
                 icon: "none",
-                title: '（已删除）'+that.lists[index],
+                title: "（已删除）" + that.lists[index],
                 duration: 2000,
             });
             this.lists.splice(index, 1);
+        },
+        // 携带参数跳转到播放页面
+        goplay: function (e) {
+            var goid = e.split("/")[2];
+            uni.navigateTo({
+                url: "./../play/index?id=" + goid,
+            });
         },
     },
     onShow() {

@@ -29,6 +29,12 @@
 			"style": {
 				"navigationBarTitleText": "我的"
 			}
+		},
+		{
+			"path": "pages/play/index",
+			"style": {
+				"navigationBarTitleText": "播放"
+			}
 		}
 	],
 	"globalStyle": {
