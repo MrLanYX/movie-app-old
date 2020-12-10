@@ -31,9 +31,11 @@
                 </view>
                 <view class="search-main-lists">
                     <text
-                        v-for="item in lists"
+                        v-for="(item,index) in lists"
                         class="search-main-list"
-                        :key="item"
+                        :key="index"
+                        @click="searchOne(item)"
+                        @longpress="delOne(index)"
                     >{{ item }}</text>
                     <!-- 历史记录为空并且搜索框为空显示文本历史记录为空 -->
                     <view
@@ -206,6 +208,21 @@ export default {
                     sort: "",
                 },
             ],
+            kong: [
+                {
+                    url: false,
+                    thumb: "",
+                    title: "资源名字",
+                    time: "年份",
+                    catid: "4",
+                    star: "演员",
+                    lianzaijs: "集数",
+                    beizhu: "备注",
+                    alias_full: "别名",
+                    area: "地区",
+                    sort: "",
+                },
+            ],
         };
     },
     computed: {},
@@ -213,6 +230,13 @@ export default {
         // 历史记录变化就执行显示判断
         lists() {
             this.tishiflagshow();
+        },
+        // 搜索框为空重新清空原有搜索结果
+        search() {
+            if (!this.search) {
+                console.log("kongle");
+                this.items = this.kong;
+            }
         },
     },
     created() {},
@@ -245,6 +269,7 @@ export default {
         // 搜索内容反馈结果
         searchItem: function () {
             var that = this;
+            that.lists.unshift(that.search);
             uni.request({
                 url: "http://106.53.243.44:8877/ssszz.php", //仅为示例，并非真实接口地址。
                 data: {
@@ -253,11 +278,34 @@ export default {
                     dect: "0",
                 },
                 success: (res) => {
-                    // that.items = JSON.parse(data);
-                    // console.log(data);
-                    that.items=res.data
+                    console.log(res);
+                    if (res.data.length == 0) {
+                        that.items = that.kong;
+                        uni.showToast({
+                            icon: "none",
+                            title: "没有搜索结果",
+                            duration: 2000,
+                        });
+                    } else {
+                        that.items = res.data;
+                    }
                 },
             });
+        },
+        // 点击单个历史记录搜索
+        searchOne: function (obj) {
+            this.search = obj;
+            this.searchItem();
+        },
+        // 长按删除单个
+        delOne: function (index) {
+            var that = this;
+            uni.showToast({
+                icon: "none",
+                title: '（已删除）'+that.lists[index],
+                duration: 2000,
+            });
+            this.lists.splice(index, 1);
         },
     },
     onShow() {
