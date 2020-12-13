@@ -1,6 +1,12 @@
 {
 	"pages": [
 		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "首页"
+			}
+		},
+		{
 			"path": "pages/fclass/index",
 			"style": {
 				"navigationBarTitleText": "分类"
@@ -10,12 +16,6 @@
 			"path": "pages/search/index",
 			"style": {
 				"navigationBarTitleText": "搜索"
-			}
-		},
-		{
-			"path": "pages/index/index",
-			"style": {
-				"navigationBarTitleText": "首页"
 			}
 		},
 		{
