@@ -1,9 +1,9 @@
 {
 	"pages": [
 		{
-			"path": "pages/index/index",
+			"path": "pages/collection/index",
 			"style": {
-				"navigationBarTitleText": "首页"
+				"navigationBarTitleText": "收藏"
 			}
 		},
 		{
@@ -19,9 +19,9 @@
 			}
 		},
 		{
-			"path": "pages/collection/index",
+			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "搜藏"
+				"navigationBarTitleText": "首页"
 			}
 		},
 		{
@@ -34,6 +34,12 @@
 			"path": "pages/play/index",
 			"style": {
 				"navigationBarTitleText": "播放"
+			}
+		},
+		{
+			"path": "pages/fanbiao/index",
+			"style": {
+				"navigationBarTitleText": "番表"
 			}
 		}
 	],

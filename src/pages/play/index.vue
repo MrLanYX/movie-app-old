@@ -30,6 +30,7 @@
                 :class="{open:playjishu==index}"
             >第{{index+1}}集</text>
         </view>
+        <view style="height:40px"></view>
     </view>
 </template>
 
@@ -97,20 +98,11 @@ export default {
             this.playing = this.playiturl[this.playxian].url[this.playjishu];
         },
     },
-    onShow() {
-        // if (
-        //     typeof this.$mp.page.getTabBar === "function" &&
-        //     this.$mp.page.getTabBar()
-        // ) {
-        //     this.$mp.page.getTabBar().setData({
-        //         selected: 3,
-        //     });
-        // }
-    },
+    onShow() {},
     onLoad(obj) {
         // 获取视频线路地址
         var that = this;
-        that.playid=obj.id
+        that.playid = obj.id;
         var url = "http://t.mtyee.com/ne2/s" + that.playid + ".js";
         uni.request({
             url: url,

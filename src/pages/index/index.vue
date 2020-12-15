@@ -20,116 +20,75 @@ export default {
                 // 第一个宫格图区块
                 {
                     name: "动漫", // 名字
-                    goto: "url", // 更多去往的地址
+                    goto: "acg", // 更多去往的地址
                     list: [
                         // 九宫格主题内容
-                        {
-                            img: require("@/static/gongge/1.jpg"),
-                            listname: "被众神捡到的男孩第一季",
-                            jishu: "10",
-                        },
-                        {
-                            img: require("@/static/gongge/2.jpg"),
-                            listname: "成神之日",
-                            jishu: "9",
-                        },
-                        {
-                            img: require("@/static/gongge/3.jpg"),
-                            listname: "魔法科高校的劣等生来访者篇",
-                            jishu: "9",
-                        },
-                        {
-                            img: require("@/static/gongge/4.jpg"),
-                            listname: "樱与抱月第一季",
-                            jishu: "9",
-                        },
-                        {
-                            img: require("@/static/gongge/5.jpg"),
-                            listname: "One Room第三季",
-                            jishu: "9",
-                        },
-                        {
-                            img: require("@/static/gongge/6.jpg"),
-                            listname: "西顿学园第一季",
-                            jishu: "13",
-                        },
-                        {
-                            img: require("@/static/gongge/7.jpg"),
-                            listname:
-                                "辉夜姬想让人告白 天才们的恋爱头脑战第二季",
-                            jishu: "12",
-                        },
-                        {
-                            img: require("@/static/gongge/8.jpg"),
-                            listname: "宇崎酱想要玩耍第一季",
-                            jishu: "12",
-                        },
-                        {
-                            img: require("@/static/gongge/9.jpg"),
-                            listname: "我的青春恋爱物语果然有问题第三季",
-                            jishu: "12",
-                        },
                     ],
                 },
                 {
                     name: "电影", // 名字
-                    goto: "url", // 更多去往的地址
+                    goto: "mov", // 更多去往的地址
                     list: [
                         // 九宫格主题内容
-                        {
-                            img: require("@/static/gongge/1.jpg"),
-                            listname: "被众神捡到的男孩第一季",
-                            jishu: "10",
-                        },
-                        {
-                            img: require("@/static/gongge/2.jpg"),
-                            listname: "成神之日",
-                            jishu: "9",
-                        },
-                        {
-                            img: require("@/static/gongge/3.jpg"),
-                            listname: "魔法科高校的劣等生",
-                            jishu: "9",
-                        },
-                        {
-                            img: require("@/static/gongge/4.jpg"),
-                            listname: "樱与抱月第一季",
-                            jishu: "9",
-                        },
-                        {
-                            img: require("@/static/gongge/5.jpg"),
-                            listname: "One Room第三季",
-                            jishu: "9",
-                        },
-                        {
-                            img: require("@/static/gongge/6.jpg"),
-                            listname: "西顿学园第一季",
-                            jishu: "13",
-                        },
-                        {
-                            img: require("@/static/gongge/7.jpg"),
-                            listname:
-                                "辉夜姬想让人告白 天才们的恋爱头脑战第二季",
-                            jishu: "12",
-                        },
-                        {
-                            img: require("@/static/gongge/8.jpg"),
-                            listname: "宇崎酱想要玩耍第一季",
-                            jishu: "12",
-                        },
-                        {
-                            img: require("@/static/gongge/9.jpg"),
-                            listname: "我的青春恋爱物语果然有问题第三季",
-                            jishu: "12",
-                        },
+                    ],
+                },
+                {
+                    name: "电视剧", // 名字
+                    goto: "tv", // 更多去往的地址
+                    list: [
+                        // 九宫格主题内容
+                    ],
+                },
+                {
+                    name: "综艺", // 名字
+                    goto: "zongyi", // 更多去往的地址
+                    list: [
+                        // 九宫格主题内容
                     ],
                 },
             ],
         };
     },
     onLoad() {},
-    methods: {},
-    created() {},
+    methods: {
+        qinqiu: function (e, i) {
+            var that = this;
+            uni.request({
+                url: "http://129.204.87.3:8877/getsortdata_all_z.php",
+                data: {
+                    action: e,
+                    page: 1,
+                    year: 0,
+                    area: "all",
+                    class: 0,
+                    dect: "",
+                    id: "",
+                },
+                success: (res) => {
+                    var liebiao = res.data.split('<li class="mb">');
+                    for (let index = 1; index < 10; index++) {
+                        var datamessage = liebiao[index].split('"');
+                        // 防止集数为空
+                        var ji = datamessage[24].split("<")[0].split(">")[1];
+                        ji = ji ? ji : "全一集";
+                        that.fenleis[i].list.push({
+                            id: datamessage[3].split("/")[2],
+                            listname: datamessage[5],
+                            img: datamessage[13],
+                            jishu: ji,
+                        });
+                    }
+                },
+            });
+        },
+    },
+    created() {
+        this.qinqiu("acg", 0);
+        this.qinqiu("mov", 1);
+        this.qinqiu("tv", 2);
+        this.qinqiu("zongyi", 3);
+        console.log(this.fenleis);
+    },
     onShow() {
         if (
             typeof this.$mp.page.getTabBar === "function" &&

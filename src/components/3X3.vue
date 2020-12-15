@@ -3,7 +3,10 @@
     <view class="gg">
         <view class="gg-top">
             <text>{{ name }}</text>
-            <button size="mini">更多>></button>
+            <button
+                size="mini"
+                @click="tiao"
+            >更多>></button>
         </view>
         <view class="gg-main">
             <view
@@ -13,12 +16,16 @@
                 highlight="true"
                 :key="i"
             >
-                <view class="gg-col" v-for="j in 3" :key="j">
+                <view
+                    class="gg-col"
+                    v-for="j in 3"
+                    :key="j"
+                >
                     <image :src="content[3 * i + j].img" />
                     <text>{{ content[3 * i + j].listname }}\n</text>
                     <text>
-                        更新至：
-                        <text>第{{ content[3 * i + j].jishu }}集</text>
+                        更至：
+                        <text>{{ content[3 * i + j].jishu }}</text>
                     </text>
                 </view>
             </view>
@@ -36,15 +43,20 @@ export default {
         content: Array,
     },
     data() {
-        return {
-            a:require('@/static/banner.jpg')
-        };
+        return {};
     },
     computed: {},
     watch: {},
     created() {},
     mounted() {},
-    methods: {},
+    methods: {
+        tiao: function () {
+            getApp().globalData.text = this.goto
+            uni.switchTab({
+                url: "./../fclass/index",
+            });
+        },
+    },
 };
 </script>
 

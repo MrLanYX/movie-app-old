@@ -10,6 +10,8 @@
                     placeholder="请输入搜索的内容"
                     slot="default"
                     v-model="search"
+                    confirm-type="搜索"
+                    @confirm="searchItem"
                 />
             </uni-nav-bar>
         </view>
@@ -315,13 +317,6 @@ export default {
                 duration: 2000,
             });
             this.lists.splice(index, 1);
-        },
-        // 携带参数跳转到播放页面
-        goplay: function (e) {
-            var goid = e.split("/")[2];
-            uni.navigateTo({
-                url: "./../play/index?id=" + goid,
-            });
         },
     },
     onShow() {
