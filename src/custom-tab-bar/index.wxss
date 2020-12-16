@@ -20,7 +20,7 @@
   right: 0;
   margin: auto;
   z-index: 1;
-  box-shadow: 0 0 4px rgba(255, 152, 114, 0.8);
+  box-shadow: 0 0 10px rgba(255, 152, 114, 0.8);
 }
 
 .tab-bar-main {
@@ -31,7 +31,7 @@
   height: 80rpx;
   background-color: #fff;
   border-top: 1px solid chocolate;
-  box-shadow: 0 0 4px rgba(255, 152, 114, 0.8);
+  box-shadow: 0 0 10px rgba(255, 152, 114, 0.8);
   z-index: 2;
   display: flex;
 }

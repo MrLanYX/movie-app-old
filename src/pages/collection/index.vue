@@ -112,6 +112,10 @@ export default {
             }
             .c-item-texts {
                 align-items: flex-end;
+                height: 32px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
             }
         }
         .c-item:nth-child(3n + 1) {

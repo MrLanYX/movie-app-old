@@ -73,7 +73,7 @@
                         <text class="item-area">地区：<text class="a">{{item.area}}</text></text>
                         <text
                             class="item-go"
-                            @click="goplay(item.url)"
+                            @click="goplay(item.url,item.title)"
                         >立即观看</text>
                     </view>
                 </view>
@@ -318,6 +318,7 @@ export default {
             });
             this.lists.splice(index, 1);
         },
+        // 获取本地的搜索记录
     },
     onShow() {
         if (

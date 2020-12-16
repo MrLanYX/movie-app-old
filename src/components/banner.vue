@@ -8,20 +8,35 @@
             mode="round"
             :dotsStyles="dotsStyles"
         >
-            <swiper @change="change" autoplay="true">
-                <swiper-item v-for="(item,index) in info" :key="index">
-                    <view class="big l item">
-                        <image :src="item.banner1" mode="center" />
-                        <text>123</text>
+            <swiper
+                @change="change"
+                autoplay="true"
+            >
+                <swiper-item
+                    v-for="(item,index) in info"
+                    :key="index"
+                >
+                    <view class="big l item" @click="goplay(item[0].url,item[0].title)">
+                        <image
+                            :src="item[0].thumb"
+                            mode="center"
+                        />
+                        <text>{{item[0].title}}</text>
                     </view>
                     <view class="big r">
-                        <view class="small item">
-                            <image :src="item.banner2" mode="center" />
-                            <text>123</text>
+                        <view class="small item" @click="goplay(item[1].url,item[1].title)">
+                            <image
+                                :src="item[1].thumb"
+                                mode="center"
+                            />
+                            <text>{{item[1].title}}</text>
                         </view>
-                        <view class="small item">
-                            <image :src="item.banner3" mode="center" />
-                            <text>123</text>
+                        <view class="small item" @click="goplay(item[2].url,item[2].title)">
+                            <image
+                                :src="item[2].thumb"
+                                mode="center"
+                            />
+                            <text>{{item[2].title}}</text>
                         </view>
                     </view>
                 </swiper-item>
@@ -43,21 +58,12 @@ export default {
         return {
             info: [
                 // 轮播图数据
-                {
-                    banner1: "./../static/banner.jpg",
-                    banner2: "./../static/banner.jpg",
-                    banner3: "./../static/banner.jpg",
-                },
-                {
-                    banner1: "./../static/banner.jpg",
-                    banner2: "./../static/banner.jpg",
-                    banner3: "./../static/banner.jpg",
-                },
-                {
-                    banner1: "./../static/banner.jpg",
-                    banner2: "./../static/banner.jpg",
-                    banner3: "./../static/banner.jpg",
-                },
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
             ],
             current: 0, // 当前轮播图序号
             dotsStyles: {
@@ -72,11 +78,28 @@ export default {
     },
     computed: {},
     watch: {},
-    created() {},
+    created() {
+        this.qinqiu();
+        console.log(this.info);
+    },
     mounted() {},
     methods: {
         change(e) {
             this.current = e.detail.current;
+        },
+        // 请求最近更新
+        qinqiu: function () {
+            var that = this;
+            uni.request({
+                url: "http://106.53.243.44:8877/ssszz.php",
+                success: (res) => {
+                    var i = 0;
+                    for (let index = 0; index < 18; index++) {
+                        i = Math.floor(index / 3);
+                        that.info[i].push(res.data[index]);
+                    }
+                },
+            });
         },
     },
 };
@@ -122,6 +145,9 @@ swiper-item {
         line-height: 30px;
         background-color: rgba(0, 0, 0, 0.3);
         color: #fff;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 }
 </style>

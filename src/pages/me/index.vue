@@ -88,6 +88,12 @@ export default {
             });
         }
     },
+    onLoad() {
+        wx.setNavigationBarColor({
+            frontColor: "#ffffff",
+            backgroundColor: "#35d0ba",
+        });
+    },
 };
 </script>
 

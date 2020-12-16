@@ -1,6 +1,6 @@
 <template xlang="wxml">
     <view class="content">
-        <text class="top-name">名字</text>
+        <text class="top-name">{{name}}</text>
         <video
             :src="playing"
             class="play"
@@ -43,6 +43,7 @@ export default {
         return {
             playid: 54383, // 资源号
             playing: "",
+            name: "",
             playxian: 0, // 选择播放线路
             playjishu: 0, // 选择播放集数
             playiturl: [
@@ -102,6 +103,7 @@ export default {
     onLoad(obj) {
         // 获取视频线路地址
         var that = this;
+        that.name = obj.name;
         that.playid = obj.id;
         var url = "http://t.mtyee.com/ne2/s" + that.playid + ".js";
         uni.request({

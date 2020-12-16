@@ -87,7 +87,6 @@ export default {
         this.qinqiu("mov", 1);
         this.qinqiu("tv", 2);
         this.qinqiu("zongyi", 3);
-        console.log(this.fenleis);
     },
     onShow() {
         if (

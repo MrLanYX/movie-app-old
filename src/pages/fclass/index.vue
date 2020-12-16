@@ -4,6 +4,7 @@
             class="item-box"
             v-for="item in fclass"
             :key="item"
+            @click="goplay(item.id,item.name)"
         >
             <image
                 class="item-box-image"
@@ -66,11 +67,19 @@
                 </uni-collapse>
             </scroll-view>
         </uni-drawer>
+
         <view
             class="draw"
             @click="show"
         >
             <text class="draw-text">选择\n分类</text>
+        </view>
+
+        <view class="fclass-bottom">
+            <uni-load-more
+                :status="status"
+                :contentText="loading"
+            ></uni-load-more>
         </view>
     </view>
 </template>
@@ -79,6 +88,7 @@
 import uniDrawer from "@dcloudio/uni-ui/lib/uni-drawer/uni-drawer.vue";
 import uniCollapse from "@dcloudio/uni-ui/lib/uni-collapse/uni-collapse.vue";
 import uniCollapseItem from "@dcloudio/uni-ui/lib/uni-collapse-item/uni-collapse-item.vue";
+import uniLoadMore from "@dcloudio/uni-ui/lib/uni-load-more/uni-load-more.vue";
 
 export default {
     name: "",
@@ -86,6 +96,7 @@ export default {
         uniDrawer,
         uniCollapse,
         uniCollapseItem,
+        uniLoadMore,
     },
     props: {},
     data() {
@@ -340,6 +351,14 @@ export default {
                     wenzi: "日本",
                 },
             ],
+            // 加载状态码
+            flag: false, // 防止反复请求锁
+            status: "more",
+            loading: {
+                contentdown: "上拉显示更多",
+                contentrefresh: "正在加载...",
+                contentnomore: "没有更多数据了",
+            },
         };
     },
     computed: {},
@@ -352,6 +371,7 @@ export default {
         // 分类搜索
         searchClass: function () {
             var that = this;
+            that.status="loading"
             uni.request({
                 url: "http://129.204.87.3:8877/getsortdata_all_z.php",
                 data: {
@@ -364,21 +384,30 @@ export default {
                     id: "",
                 },
                 success: (res) => {
-                    // 分割处理数据
-                    var liebiao = res.data.split('<li class="mb">');
-                    if (that.page == 1) {
-                        that.fclass = [];
+                    if (res.data!="    	 无更多数据了      ") {
+                        // 分割处理数据
+                        var liebiao = res.data.split('<li class="mb">');
+                        if (that.page == 1) {
+                            that.fclass = [];
+                        }
+                        for (let index = 1; index < liebiao.length; index++) {
+                            var datamessage = liebiao[index].split('"');
+                            that.fclass.push({
+                                id: datamessage[3].split("/")[2],
+                                name: datamessage[5],
+                                url: datamessage[13],
+                                jishu: datamessage[24]
+                                    .split("<")[0]
+                                    .split(">")[1],
+                            });
+                        }
+                        console.log("请求成功");
+                        that.flag = false;
+                        that.status="more"
+                    }else{
+                        that.flag = false;
+                        that.status="nomore"
                     }
-                    for (let index = 1; index < liebiao.length; index++) {
-                        var datamessage = liebiao[index].split('"');
-                        that.fclass.push({
-                            id: datamessage[3].split("/")[2],
-                            name: datamessage[5],
-                            url: datamessage[13],
-                            jishu: datamessage[24].split("<")[0].split(">")[1],
-                        });
-                    }
-                    console.log("请求成功");
                 },
             });
         },
@@ -468,6 +497,14 @@ export default {
         }
     },
     onLoad() {},
+    onReachBottom() {
+        if (!this.flag) {
+            //此处判断，上锁，防止重复请求
+            this.flag = true;
+            this.page += 1;
+            this.searchClass();
+        }
+    },
 };
 </script>
 
@@ -496,10 +533,18 @@ export default {
         }
         .item-box-texts {
             align-items: flex-end;
+            height: 32px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
         .item-box-text {
             align-items: flex-end;
             color: #1ca591;
+            height: 32px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
     }
     .item-box:nth-child(3n + 1) {
@@ -532,5 +577,9 @@ export default {
 }
 .fclass-dian-anxia {
     background-color: #fff;
+}
+.fclass-bottom {
+    width: 100%;
+    height: 40px;
 }
 </style>

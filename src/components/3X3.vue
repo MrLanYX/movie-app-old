@@ -20,6 +20,7 @@
                     class="gg-col"
                     v-for="j in 3"
                     :key="j"
+                    @click="jisuan(i,j)"
                 >
                     <image :src="content[3 * i + j].img" />
                     <text>{{ content[3 * i + j].listname }}\n</text>
@@ -43,7 +44,9 @@ export default {
         content: Array,
     },
     data() {
-        return {};
+        return {
+            arr: [[], [], []],
+        };
     },
     computed: {},
     watch: {},
@@ -51,11 +54,16 @@ export default {
     mounted() {},
     methods: {
         tiao: function () {
-            getApp().globalData.text = this.goto
+            getApp().globalData.text = this.goto;
             uni.switchTab({
                 url: "./../fclass/index",
             });
         },
+        // 计算点击目标的数组下标
+        jisuan:function(i,j){
+            var x=3 * i + j
+            this.goplay(this.content[x].id,this.content[x].listname)
+        }
     },
 };
 </script>
@@ -97,11 +105,15 @@ export default {
                 image {
                     width: 100%;
                     flex-grow: 1;
-                    margin-bottom: 5px;
                 }
                 text {
+                    width: 100%;
+                    height: 32px;
                     font-size: 14px;
-                    align-items: flex-end;
+                    // align-items: flex-end;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
                     text {
                         font-size: 12px;
                         color: #1ca591;
