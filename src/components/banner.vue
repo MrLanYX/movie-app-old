@@ -16,7 +16,7 @@
                     v-for="(item,index) in info"
                     :key="index"
                 >
-                    <view class="big l item" @click="goplay(item[0].url,item[0].title)">
+                    <view class="big l item" @click="goplay(item[0].url,item[0].title,item[0].thumb)">
                         <image
                             :src="item[0].thumb"
                             mode="center"
@@ -24,14 +24,14 @@
                         <text>{{item[0].title}}</text>
                     </view>
                     <view class="big r">
-                        <view class="small item" @click="goplay(item[1].url,item[1].title)">
+                        <view class="small item" @click="goplay(item[1].url,item[1].title,item[1].thumb)">
                             <image
                                 :src="item[1].thumb"
                                 mode="center"
                             />
                             <text>{{item[1].title}}</text>
                         </view>
-                        <view class="small item" @click="goplay(item[2].url,item[2].title)">
+                        <view class="small item" @click="goplay(item[2].url,item[2].title,item[2].thumb)">
                             <image
                                 :src="item[2].thumb"
                                 mode="center"
@@ -80,7 +80,6 @@ export default {
     watch: {},
     created() {
         this.qinqiu();
-        console.log(this.info);
     },
     mounted() {},
     methods: {
@@ -93,6 +92,7 @@ export default {
             uni.request({
                 url: "http://106.53.243.44:8877/ssszz.php",
                 success: (res) => {
+                    console.log(res.data);
                     var i = 0;
                     for (let index = 0; index < 18; index++) {
                         i = Math.floor(index / 3);

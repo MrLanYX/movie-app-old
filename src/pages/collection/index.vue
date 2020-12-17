@@ -16,17 +16,37 @@
                 v-if="current == 0"
                 scroll-y="true"
             >
-                <view class="c-item" v-for="i in 10" :key="i">
-                    <image class="c-item-image" />
-                    <text class="c-item-text">11</text>
+                <view
+                    class="c-item"
+                    v-for="item in col"
+                    :key="item"
+                    @click="goplay(item.playid,item.name,item.img)"
+                >
+                    <image
+                        class="c-item-image"
+                        :src="item.img"
+                    />
+                    <text class="c-item-text">{{item.name}}</text>
                 </view>
             </view>
-            <scroll-view
+            <view
                 class="c-box"
                 v-if="current == 1"
+                scroll-y="true"
             >
-                2
-            </scroll-view>
+                <view
+                    class="c-item"
+                    v-for="item in his"
+                    :key="item"
+                    @click="goplay(item.playid,item.name,item.img)"
+                >
+                    <image
+                        class="c-item-image"
+                        :src="item.img"
+                    />
+                    <text class="c-item-text">{{item.name}}</text>
+                </view>
+            </view>
         </view>
     </view>
 </template>
@@ -44,6 +64,8 @@ export default {
         return {
             items: ["我的收藏", "浏览历史"],
             current: 0,
+            his: "", // 历史记录
+            col: "", // 收藏记录
         };
     },
     computed: {},
@@ -66,6 +88,37 @@ export default {
                 selected: 3,
             });
         }
+        // 获取收藏记录
+        console.log("获取记录");
+        var that = this;
+        uni.getStorage({
+            key: "playHistory",
+            success: function (res) {
+                that.his = res.data;
+            },
+            fail: function () {
+                that.his = [];
+                uni.showToast({
+                    icon:'none',
+                    title: "没有浏览历史",
+                    duration: 2000,
+                });
+            },
+        });
+        uni.getStorage({
+            key: "collection",
+            success: function (res) {
+                that.col = res.data;
+            },
+            fail: function () {
+                that.col = [];
+                uni.showToast({
+                    icon:'none',
+                    title: "没有收藏记录",
+                    duration: 2000,
+                });
+            },
+        });
     },
 };
 </script>
@@ -92,11 +145,13 @@ export default {
         height: 100%;
         overflow: scroll;
         display: flex;
+        background-color: #eee;
+        border-radius: 6px;
         flex-flow: row wrap;
         align-content: flex-start;
         .c-item {
             width: 31%;
-            height: 300rpx;
+            height: 350rpx;
             background-color: #fff;
             margin-left: 3%;
             margin-top: 3%;
@@ -121,7 +176,7 @@ export default {
         .c-item:nth-child(3n + 1) {
             margin-left: 0;
         }
-        .c-item:nth-child(-n+3){
+        .c-item:nth-child(-n + 3) {
             margin-top: 0;
         }
     }

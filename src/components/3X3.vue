@@ -62,7 +62,7 @@ export default {
         // 计算点击目标的数组下标
         jisuan:function(i,j){
             var x=3 * i + j
-            this.goplay(this.content[x].id,this.content[x].listname)
+            this.goplay(this.content[x].id,this.content[x].listname,this.content[x].img)
         }
     },
 };

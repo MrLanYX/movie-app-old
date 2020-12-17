@@ -4,7 +4,7 @@ import App from './App.vue';
 Vue.config.productionTip = false
 
 // 定义全局播放方法
-Vue.prototype.goplay = function (e, name) {
+Vue.prototype.goplay = function (e, name, img) {
   var goid = 0
   // 搜索页面跳转来的播放
   if (e.split("/")[2]) {
@@ -13,7 +13,7 @@ Vue.prototype.goplay = function (e, name) {
     goid = e
   }
   uni.navigateTo({
-    url: "./../play/index?id=" + goid + "&name=" + name,
+    url: "./../play/index?id=" + goid + "&name=" + name + "&img=" + img,
   });
 }
 

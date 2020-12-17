@@ -22,21 +22,21 @@
                     size="16"
                 ></uni-icons>
             </view>
-            <view class="me-string-item">
+            <view class="me-string-item" @click="clearcol">
                 <text class="me-item-text">清除全部收藏</text>
                 <uni-icons
                     type="arrowright"
                     size="16"
                 ></uni-icons>
             </view>
-            <view class="me-string-item">
+            <view class="me-string-item" @click="clearhis">
                 <text class="me-item-text">清除全部浏览记录</text>
                 <uni-icons
                     type="arrowright"
                     size="16"
                 ></uni-icons>
             </view>
-            <view class="me-string-item">
+            <view class="me-string-item" @click="clearsearch">
                 <text class="me-item-text">清除搜索记录</text>
                 <uni-icons
                     type="arrowright"
@@ -77,7 +77,133 @@ export default {
     watch: {},
     created() {},
     mounted() {},
-    methods: {},
+    methods: {
+        // 清除全部收藏
+        clearcol: function () {
+            uni.showModal({
+                title: "清除全部收藏",
+                content: "是否清除全部收藏（本操作不可撤回）",
+                success: function (res) {
+                    if (res.confirm) {
+                        uni.removeStorage({
+                            key: "collection",
+                            success: function (res) {
+                                uni.showToast({
+                                    title: "成功清除全部收藏",
+                                    icon: "none",
+                                    duration: 2000,
+                                });
+                            },
+                            fail: function () {
+                                uni.showToast({
+                                    title: "操作失败",
+                                    icon: "none",
+                                    duration: 2000,
+                                });
+                            },
+                        });
+                    } else if (res.cancel) {
+                        uni.showToast({
+                            title: "以取消清除收藏",
+                            icon: "none",
+                            duration: 2000,
+                        });
+                    }
+                },
+            });
+        },
+        // 清除全部浏览记录
+        clearhis: function () {
+            uni.showModal({
+                title: "清除全部浏览记录",
+                content: "是否清除全部浏览记录（本操作不可撤回）",
+                success: function (res) {
+                    if (res.confirm) {
+                        uni.removeStorage({
+                            key: "playHistory",
+                            success: function (res) {
+                                uni.showToast({
+                                    title: "成功清除全部浏览记录",
+                                    icon: "none",
+                                    duration: 2000,
+                                });
+                            },
+                            fail: function () {
+                                uni.showToast({
+                                    title: "操作失败",
+                                    icon: "none",
+                                    duration: 2000,
+                                });
+                            },
+                        });
+                    } else if (res.cancel) {
+                        uni.showToast({
+                            title: "以取清除浏览记录",
+                            icon: "none",
+                            duration: 2000,
+                        });
+                    }
+                },
+            });
+        },
+        // 清除搜索记录
+        clearsearch: function () {
+            uni.showModal({
+                title: "清除全部搜索记录",
+                content: "是否清除全部搜索记录（本操作不可撤回）",
+                success: function (res) {
+                    if (res.confirm) {
+                        uni.removeStorage({
+                            key: "searchHistory",
+                            success: function (res) {
+                                uni.showToast({
+                                    title: "成功清除全部搜索记录",
+                                    icon: "none",
+                                    duration: 2000,
+                                });
+                            },
+                            fail: function () {
+                                uni.showToast({
+                                    title: "操作失败",
+                                    icon: "none",
+                                    duration: 2000,
+                                });
+                            },
+                        });
+                    } else if (res.cancel) {
+                        uni.showToast({
+                            title: "以取消除搜索记录",
+                            icon: "none",
+                            duration: 2000,
+                        });
+                    }
+                },
+            });
+        },
+        // 清除全部缓存
+        clearsearch: function () {
+            uni.showModal({
+                title: "清除全部缓存",
+                content: "是否清除全部搜索记录（包含搜索历史、浏览历史、收藏）（本操作不可撤回）",
+                success: function (res) {
+                    if (res.confirm) {
+                        uni.clearStorage()
+                        uni.showToast({
+                            title: "清除缓存完毕",
+                            icon: "none",
+                            duration: 2000,
+                        });
+                    } else if (res.cancel) {
+                        uni.showToast({
+                            title: "以取清除缓存",
+                            icon: "none",
+                            duration: 2000,
+                        });
+                    }
+                },
+            });
+        },
+    },
     onShow() {
         if (
             typeof this.$mp.page.getTabBar === "function" &&

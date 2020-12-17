@@ -4,7 +4,7 @@
             class="item-box"
             v-for="item in fclass"
             :key="item"
-            @click="goplay(item.id,item.name)"
+            @click="goplay(item.id,item.name,item.url)"
         >
             <image
                 class="item-box-image"
