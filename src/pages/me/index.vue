@@ -43,7 +43,7 @@
                     size="16"
                 ></uni-icons>
             </view>
-            <view class="me-string-item">
+            <view class="me-string-item" @click="clearAll">
                 <text class="me-item-text">清除全部缓存</text>
                 <uni-icons
                     type="arrowright"
@@ -181,7 +181,7 @@ export default {
             });
         },
         // 清除全部缓存
-        clearsearch: function () {
+        clearAll: function () {
             uni.showModal({
                 title: "清除全部缓存",
                 content: "是否清除全部搜索记录（包含搜索历史、浏览历史、收藏）（本操作不可撤回）",

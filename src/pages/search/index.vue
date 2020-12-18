@@ -154,7 +154,6 @@ export default {
         },
     },
     created() {
-        this.getSearchHistory();
     },
     mounted() {},
     methods: {
@@ -241,6 +240,7 @@ export default {
                 },
                 fail: function (err) {
                     console.log(err);
+                    that.lists = [];
                 },
             });
         },
@@ -255,6 +255,7 @@ export default {
             });
         }
         this.tishiflagshow();
+        this.getSearchHistory();
     },
 };
 </script>
